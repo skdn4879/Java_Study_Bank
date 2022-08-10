@@ -1,5 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 <html>
 <head>
 	<title>Home</title>
@@ -16,6 +17,7 @@
 	<a href="/bankbook/list">BankBookList</a>
 	<a href="/bankbook/detail">BankBookDetail</a>
 	<a href="/bankbook/add">BankBookAdd</a>
+	<a href="/member/search">Search</a>
 	
 </body>
 </html>

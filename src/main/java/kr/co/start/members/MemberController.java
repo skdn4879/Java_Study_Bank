@@ -1,10 +1,13 @@
 package kr.co.start.members;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller	// 이 클래스는 Controller 역할이라는 설명과 Container에게 이 클래스의 객체 생성을 위임
 @RequestMapping(value = "/member/*")	//이 주소와 밑의 주소가 합쳐져서 판단된다.
@@ -15,11 +18,23 @@ public class MemberController {
 	
 	// RequestMapping의 value는 절대경로
 	//	/member/login
-	@RequestMapping(value = "login")
+	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String login() {
 		System.out.println("로그인 실행");
 		
 		return "member/login";
+	}
+	
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public String login(BankMembersDto bankMembersDto) {
+		System.out.println("로그인 실행");
+		//기본적으론 forward (응답으로 html, jsp)
+		// redirect (응답으로 URL)
+		// redirect:다시접속할URL주소(절대경로, 상대경로)
+		
+		// /member/login 이므로 현재 경로는 / 밑에 member
+		return "redirect:../";
+		//return "home";
 	}
 	
 	//	/member/join
@@ -64,7 +79,28 @@ public class MemberController {
 			System.out.println("회원가입 성공");
 		}
 		
-		return "member/join";
+		// 로그인폼으로 이동
+		// redirect
+		return "redirect:./login";
+		
+		//return "member/join";
+	}
+	
+	@RequestMapping(value = "search", method = RequestMethod.GET)
+	public String getSearchById() {
+		return "member/search";
+	}
+	
+	@RequestMapping(value = "search", method = RequestMethod.POST)
+	public ModelAndView getSearchById(String search) throws Exception {
+		BankMembersDao bankMembersDao = new BankMembersDao();
+		ArrayList<BankMembersDto> ar = bankMembersDao.getSearchById(search);
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("list", ar);
+		mv.setViewName("member/list");
+		
+		return mv;
 	}
 	
 }

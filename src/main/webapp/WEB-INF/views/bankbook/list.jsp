@@ -42,6 +42,7 @@
 	</table>
 	
 	<a href="./detail">detail</a>
+	<a href="./add">BankBookAdd</a>
 	<a href="/">메인페이지</a>
 </body>
 </html>

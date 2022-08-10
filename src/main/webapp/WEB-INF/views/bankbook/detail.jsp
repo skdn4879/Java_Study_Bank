@@ -37,7 +37,7 @@
 	<a href="/member/join">Join</a>
 	
 	<a href="/t/tt/ttt/qwer">dummypage</a>
-	
+	<a href="./list">리스트보기</a>
 	<a href="/">메인페이지</a>
 </body>
 </html>
