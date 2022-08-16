@@ -12,12 +12,18 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 	
-	<a href="/member/login">Login</a>
+	<c:if test="${ empty sessionScope.member }">
+		<a href="/member/login">Login</a>
+	</c:if>
+	<c:if test="${not empty sessionScope.member }">
+		<h4>${sessionScope.member.name }님 환영합니다.</h4>
+		<a href="/bankbook/list">BankBookList</a>
+		<a href="/bankbook/detail">BankBookDetail</a>
+		<a href="/bankbook/add">BankBookAdd</a>
+		<a href="/member/search">Search</a>
+		<a href="/member/logout">Logout</a>
+	</c:if>
 	<a href="/member/join">Join</a>
-	<a href="/bankbook/list">BankBookList</a>
-	<a href="/bankbook/detail">BankBookDetail</a>
-	<a href="/bankbook/add">BankBookAdd</a>
-	<a href="/member/search">Search</a>
 	
 </body>
 </html>

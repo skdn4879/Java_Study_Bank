@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		    
+<!-- namespace의 값은 사용할 DAO의 풀패키지명 -->
+<mapper namespace="kr.co.start.members.BankMembersDao">
+	<!-- id는 DAO의 메소드명과 동일하게 -->
+	<!-- resultType에 자동으로 들어가는 이유는 DB컬럼명과 DTO의 멤버변수명과 setter메소드명, parameter 이름이 같기 때문이다. -->
+	<select id="login" parameterType="kr.co.start.members.BankMembersDto" resultType="kr.co.start.members.BankMembersDto">
+		SELECT * FROM bankmembers WHERE username = #{userName} AND password = #{password}
+	</select>
+	
+	<!-- 아직 미완성 -->
+	<select id="getSearchById" parameterType="java.lang.String" resultType="java.util.ArrayList">
+		SELECT * FROM bankmembers WHERE username LIKE '%' || #{value} || '%' ORDER BY username ASC
+	</select>
+</mapper>

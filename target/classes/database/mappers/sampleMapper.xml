@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		    
+<mapper namespace="sample">
+	<!-- sql문은 Mapper에 존재한다. -->
+	<!-- 이 안에 DAO에 사용할 sql문을 넣는다. -->
+	<!-- <select id=""></select>
+	<insert id=""></insert>
+	<update id=""></update>
+	<delete id=""></delete> -->
+</mapper>

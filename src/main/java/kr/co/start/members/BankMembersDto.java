@@ -10,6 +10,14 @@ public class BankMembersDto {
 	
 	public BankMembersDto() {}
 
+	public BankMembersDto(String userName, String name, String email, String phone) {
+		super();
+		this.userName = userName;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+	}
+
 	public BankMembersDto(String userName, String password, String name, String email, String phone) {
 		super();
 		this.userName = userName;

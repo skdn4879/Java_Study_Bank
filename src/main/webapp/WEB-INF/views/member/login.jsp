@@ -30,8 +30,8 @@
 <body>
 	<h1>로그인</h1>
     <form method="post" action="./login">
-        ID <input id="id" type="text" name="id" placeholder="ID입력"><br>
-        PW <input id="pw" type="password" name="pw" placeholder="PW입력"><br>
+        ID <input id="id" type="text" name="userName" placeholder="ID입력"><br>
+        PW <input id="pw" type="password" name="password" placeholder="PW입력"><br>
         <input id="login" type="submit" value="로그인">
         <input id="retry" type="reset" value="다시입력">
     </form>

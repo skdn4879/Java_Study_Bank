@@ -5,9 +5,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import kr.co.start.util.DBConnector;
 
+@Repository
 public class BankMembersDao implements MembersDao {
+	
+	@Autowired
+	private SqlSession sqlSession;
+	private final String NAMESPACE = "kr.co.start.members.BankMembersDao."; 
 	
 	@Override
 	public ArrayList<BankMembersDto> getSearchById(String search) throws Exception {
@@ -66,6 +75,26 @@ public class BankMembersDao implements MembersDao {
 		DBConnector.disConnect(st, con);
 		
 		return result;
+	}
+	
+	@Override
+	public BankMembersDto login(BankMembersDto bankMembersDto) throws Exception {
+		
+		/* 아래의 코드를 이제 mybatis로 사용한다.
+		 * Connection con = DBConnector.getConnection(); String sql =
+		 * "SELECT * FROM bankmembers WHERE username = ? AND password = ?";
+		 * PreparedStatement st = con.prepareStatement(sql); st.setString(1,
+		 * bankMembersDto.getUserName()); st.setString(2, bankMembersDto.getPassword());
+		 * ResultSet rs = st.executeQuery(); BankMembersDto result = null;
+		 * 
+		 * if(rs.next()) { result = new BankMembersDto(rs.getString("username"),
+		 * rs.getString("name"), rs.getString("email"), rs.getString("phone")); }
+		 * 
+		 * DBConnector.disConnect(rs, st, con);
+		 */
+		
+		return sqlSession.selectOne(NAMESPACE + "login", bankMembersDto);
+		// "kr.co.start.members.BankMembersDao.login"
 	}
 	
 }
