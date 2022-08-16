@@ -3,7 +3,10 @@ package kr.co.start.members;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +16,20 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/member/*")	//이 주소와 밑의 주소가 합쳐져서 판단된다.
 public class MemberController {
 
+	@Autowired
+	private BankMembersService bankMembersService;
+	
+	/*@Autowired
+	@Qualifier("myMemberDao")	// 이 빈 이름으로 지정된 객체를 주입한다.
+	private BankMembersDao bankMembersDao;*/
+	// annotation이 붙은 객체들은 pool이라는 공간에 생성되어 싱글톤으로 관리된다. 주입하기 전에 확인할 것
+	
+	/*@Autowired
+	public MemberController(BankMembersDao bankMembersDao) {
+		this.bankMembersDao = bankMembersDao;
+	}*/
+	// annotation이 붙은 객체들은 pool이라는 공간에 생성되어 싱글톤으로 관리된다. 주입하기 전에 확인할 것
+	
 	// annotation
 	// @ : 설명 + 실행
 	
@@ -26,15 +43,30 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String login(BankMembersDto bankMembersDto) {
-		System.out.println("로그인 실행");
+	public String login(BankMembersDto bankMembersDto, HttpSession session) throws Exception {
+		System.out.println("DB에 로그인 실행");
 		//기본적으론 forward (응답으로 html, jsp)
 		// redirect (응답으로 URL)
 		// redirect:다시접속할URL주소(절대경로, 상대경로)
 		
+		bankMembersDto = bankMembersService.login(bankMembersDto);
+		
+		if(bankMembersDto != null) {
+			session.setAttribute("member", bankMembersDto);
+		}
+		
 		// /member/login 이므로 현재 경로는 / 밑에 member
 		return "redirect:../";
 		//return "home";
+	}
+	
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		
+		session.removeAttribute("member");
+		
+		return "redirect:/";
+		
 	}
 	
 	//	/member/join
@@ -72,9 +104,9 @@ public class MemberController {
 		// DB의 컬럼명과 DTO의 멤버변수명과 url, form으로 전달받는 파라미터이름이 동일해야한다. (DB컬럼명은 대소문자 구분안함)
 		System.out.println("조인 POST 실행");
 		
-		BankMembersDao bankMembersDao = new BankMembersDao();
+		//BankMembersDao bankMembersDao = new BankMembersDao();
 		
-		int result = bankMembersDao.setJoin(bankMembersDto);
+		int result = bankMembersService.setJoin(bankMembersDto);
 		if(result == 1) {
 			System.out.println("회원가입 성공");
 		}
@@ -93,8 +125,8 @@ public class MemberController {
 	
 	@RequestMapping(value = "search", method = RequestMethod.POST)
 	public ModelAndView getSearchById(String search) throws Exception {
-		BankMembersDao bankMembersDao = new BankMembersDao();
-		ArrayList<BankMembersDto> ar = bankMembersDao.getSearchById(search);
+		//BankMembersDao bankMembersDao = new BankMembersDao();
+		ArrayList<BankMembersDto> ar = bankMembersService.getSearchById(search);
 		ModelAndView mv = new ModelAndView();
 		
 		mv.addObject("list", ar);

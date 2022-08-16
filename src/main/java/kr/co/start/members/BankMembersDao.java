@@ -5,8 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Repository;
+
 import kr.co.start.util.DBConnector;
 
+@Repository("myMemberDao")
 public class BankMembersDao implements MembersDao {
 	
 	@Override
@@ -64,6 +67,31 @@ public class BankMembersDao implements MembersDao {
 		
 		//6. 자원해제
 		DBConnector.disConnect(st, con);
+		
+		return result;
+	}
+
+	@Override
+	public BankMembersDto login(BankMembersDto bankMembersDto) throws Exception {
+		
+		Connection con = DBConnector.getConnection();
+		
+		String sql = "SELECT * FROM bankmembers WHERE username = ? AND password = ?";
+		
+		PreparedStatement st = con.prepareStatement(sql);
+		
+		st.setString(1, bankMembersDto.getUserName());
+		st.setString(2, bankMembersDto.getPassword());
+		
+		ResultSet rs = st.executeQuery();
+		
+		BankMembersDto result = null;
+		
+		if(rs.next()) {
+			result = new BankMembersDto(rs.getString("username"), rs.getString("name"), rs.getString("email"), rs.getString("phone"));
+		}
+		
+		DBConnector.disConnect(rs, st, con);
 		
 		return result;
 	}

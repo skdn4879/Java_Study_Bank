@@ -5,4 +5,28 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
+	<!-- 객체 생성, 객체 주입 -->
+	
+	<!-- 객체 생성 -->
+	<!-- Engine engine = new Engine(); -->
+	<!-- bean == new 기본생성자() -->
+	<bean class="kr.co.start.di.Engine" id="engine"></bean>
+	<bean class="kr.co.start.di.LeftWheel" id="leftWheel"></bean>
+	<bean class="kr.co.start.di.RightWheel" id="rightWheel"></bean>
+	
+	<!-- Car클래스에는 기본생성자가 없다. -->
+	<bean class="kr.co.start.di.Car" id="car">
+		<constructor-arg index="0" ref="leftWheel"></constructor-arg>
+		<constructor-arg index="1" ref="rightWheel"></constructor-arg>
+		
+		<!-- <constructor-arg name="leftWheel" ref="leftWheel"></constructor-arg>
+		<constructor-arg name="rightWheel" ref="rightWheel"></constructor-arg> -->
+		
+		<!-- <constructor-arg type="kr.co.start.di.Wheel" ref="leftWheel"></constructor-arg>
+		<constructor-arg type="kr.co.start.di.Wheel" ref="rightWheel"></constructor-arg> -->
+		
+		<!-- setter메소드 set을빼고 남은 첫글자를 소문자로 -->
+		<property name="engine" ref="engine"></property>
+	</bean>
+	
 </beans>
