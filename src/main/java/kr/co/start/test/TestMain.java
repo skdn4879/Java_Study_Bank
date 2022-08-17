@@ -32,11 +32,11 @@ public class TestMain {
 			System.out.print("검색어 입력 : ");
 			String search = sc.next();
 			
-			ArrayList<BankMembersDto> results = bankMembersDao.getSearchById(search);
+			/*ArrayList<BankMembersDto> results = bankMembersDao.getSearchById(search);
 			
 			for(BankMembersDto result : results) {
 				System.out.println(result);
-			}
+			}*/
 			
 		} catch (Exception e) {
 			e.printStackTrace();

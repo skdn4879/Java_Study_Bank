@@ -2,6 +2,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +11,6 @@
 </head>
 <body>
 	<h1>Member List</h1>
-	
-	<%ArrayList<BankMembersDto> ar = (ArrayList<BankMembersDto>)request.getAttribute("list"); %>
 	
 	<table border="1">
 		<thead>
@@ -23,14 +22,15 @@
 			</tr>
 		</thead>
 		<tbody>
-			<%for(BankMembersDto bankMembersDto : ar){ %>
-			<tr>
-				<td><%=bankMembersDto.getUserName() %></td>
-				<td><%=bankMembersDto.getName() %></td>
-				<td><%=bankMembersDto.getEmail() %></td>
-				<td><%=bankMembersDto.getPhone() %></td>
-			</tr>
-			<%} %>
+			<c:forEach items="${requestScope.list }" var="dto">
+				<tr>
+					<td>${pageScope.dto.userName }</td>
+					<td>${pageScope.dto.name }</td>
+					<td>${pageScope.dto.email }</td>
+					<td>${pageScope.dto.phone }</td>
+				</tr>
+			</c:forEach>
+		
 		</tbody>
 	</table>
 	

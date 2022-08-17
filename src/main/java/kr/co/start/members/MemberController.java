@@ -1,8 +1,7 @@
 package kr.co.start.members;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,7 +113,7 @@ public class MemberController {
 	@RequestMapping(value = "search", method = RequestMethod.POST)
 	public ModelAndView getSearchById(String search) throws Exception {
 		//BankMembersDao bankMembersDao = new BankMembersDao();
-		ArrayList<BankMembersDto> ar = bankMembersService.getSearchById(search);
+		List<BankMembersDto> ar = bankMembersService.getSearchById(search);
 		ModelAndView mv = new ModelAndView();
 		
 		mv.addObject("list", ar);

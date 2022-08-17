@@ -11,8 +11,12 @@
 		SELECT * FROM bankmembers WHERE username = #{userName} AND password = #{password}
 	</select>
 	
-	<!-- 아직 미완성 -->
-	<select id="getSearchById" parameterType="java.lang.String" resultType="java.util.ArrayList">
-		SELECT * FROM bankmembers WHERE username LIKE '%' || #{value} || '%' ORDER BY username ASC
+	<!-- ArrayList는 setter가 없어서 에러난다. 받는 개수는 mapper에서 결정하지 않고 dao에서 결정한다. -->
+	<select id="getSearchById" parameterType="java.lang.String" resultType="kr.co.start.members.BankMembersDto">
+		SELECT * FROM bankmembers WHERE username LIKE '%' || #{search} || '%' ORDER BY username ASC
 	</select>
+	
+	<insert id="setJoin" parameterType="kr.co.start.members.BankMembersDto">
+		INSERT INTO bankmembers(username, password, name, email, phone) VALUES(#{userName}, #{password}, #{name}, #{email}, #{phone})
+	</insert>
 </mapper>

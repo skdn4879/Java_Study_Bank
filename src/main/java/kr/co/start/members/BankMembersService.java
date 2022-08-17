@@ -1,6 +1,6 @@
 package kr.co.start.members;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class BankMembersService {
 	}
 		
 	//검색어를 입력해 아이디(username)를 찾기(검색어를 포함된 애들) abc순으로 정렬
-	public ArrayList<BankMembersDto> getSearchById(String search) throws Exception {
+	public List<BankMembersDto> getSearchById(String search) throws Exception {
 		return bankMembersDao.getSearchById(search);
 	}
 		
