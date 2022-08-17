@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		    
+<mapper namespace="kr.co.start.members.BankmembersDao">
+	
+	<select id="login" parameterType="kr.co.start.members.BankMembersDto" resultType="kr.co.start.members.BankMembersDto">
+		SELECT * FROM bankmembers WHERE username = #{userName} AND password = #{password}
+	</select>
+	
+	<select id="getSearchById" parameterType="java.lang.String" resultType="kr.co.start.members.BankMembersDto">
+		SELECT * FROM bankmembers WHERE username LIKE '%' || #{search} || '%' ORDER BY username ASC
+	</select>
+	
+	<insert id="setJoin" parameterType="kr.co.start.members.BankMembersDto">
+		INSERT INTO bankmembers(username, password, name, email, phone) VALUES(#{userName}, #{password}, #{name}, #{email}, #{phone})
+	</insert>
+	
+</mapper>
