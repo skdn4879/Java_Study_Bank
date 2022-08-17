@@ -2,6 +2,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +12,6 @@
 <body>
 	<h1>BankBook List</h1>
 	<!-- /bankbook/list -->
-	<%ArrayList<BankBookDto> ar = (ArrayList<BankBookDto>)request.getAttribute("list"); %>
-	<%for(BankBookDto bankBookDto : ar){ %>
-		<h3><%=bankBookDto %></h3>
-	<%} %>
 	
 	<table border = "1">
 		<thead>
@@ -31,13 +28,14 @@
 				<td>Name2</td>
 				<td>3.14</td>
 			</tr> -->
-			<%for(BankBookDto bankBookDto : ar){ %>
-			<tr>
-				<!-- URL 파라미터는 띄어쓰면 안됨 -->
-				<td><a href="./detail?bookNum=<%=bankBookDto.getBookNum() %>"> <%=bankBookDto.getBookName() %> </a></td>
-				<td><%=bankBookDto.getBookRate() %></td>
-			</tr>
-			<%} %>
+			
+			<c:forEach items="${requestScope.list }" var="bankbook">
+				<tr>
+					<td><a href="./detail?bookNum=${pageScope.bankbook.bookNum }">${pageScope.bankbook.bookName }</a></td>
+					<td>${pageScope.bankbook.bookRate }</td>
+				</tr>
+			</c:forEach>
+			
 		</tbody>
 	</table>
 	

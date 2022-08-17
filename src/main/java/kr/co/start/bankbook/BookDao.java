@@ -1,6 +1,6 @@
 package kr.co.start.bankbook;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface BookDao {
 
@@ -8,7 +8,7 @@ public interface BookDao {
 	public int setBankBook(BankBookDto bankBookDto) throws Exception;
 	
 	//BankBook 모든 데이터를 조회, 최신순으로(DESC)
-	public ArrayList<BankBookDto> getList() throws Exception;
+	public List<BankBookDto> getList() throws Exception;
 	
 	//bookSale 컬럼 값 수정
 	public int setChangeSale(BankBookDto bankBookDto) throws Exception;

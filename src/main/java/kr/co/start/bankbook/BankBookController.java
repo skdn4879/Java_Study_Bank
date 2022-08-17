@@ -1,7 +1,8 @@
 package kr.co.start.bankbook;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,13 +12,16 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "/bankbook/*")
 public class BankBookController {
+	
+	@Autowired
+	private BankBookService bankBookService;
 
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public ModelAndView list(Model model) throws Exception {
 		System.out.println("list호출");
 		
-		BankBookDao bankBookDao = new BankBookDao();
-		ArrayList<BankBookDto> ar = bankBookDao.getList();
+		//BankBookDao bankBookDao = new BankBookDao();
+		List<BankBookDto> ar = bankBookService.getList();
 		model.addAttribute("list", ar);
 		//이렇게 model을 매개변수로 받아서 쓰는것도 가능하고
 		//ModelAndView객체가 Model도 포함이라 그걸 써도 된다.
@@ -44,8 +48,8 @@ public class BankBookController {
 		System.out.println("detail호출");
 		ModelAndView mv = new ModelAndView();
 		
-		BankBookDao bankBookDao = new BankBookDao();
-		bankBookDto = bankBookDao.getDetail(bankBookDto);
+		//BankBookDao bankBookDao = new BankBookDao();
+		bankBookDto = bankBookService.getDetail(bankBookDto);
 		
 		mv.setViewName("bankbook/detail");
 		mv.addObject("detail", bankBookDto);
@@ -61,8 +65,8 @@ public class BankBookController {
 	
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public ModelAndView add(BankBookDto bankBookDto) throws Exception {
-		BankBookDao bankBookDao = new BankBookDao();
-		int result = bankBookDao.setBankBook(bankBookDto);
+		//BankBookDao bankBookDao = new BankBookDao();
+		int result = bankBookService.setBankBook(bankBookDto);
 		
 		if(result == 1) {
 			System.out.println("bankbook 입력 완료");

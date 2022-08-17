@@ -1,6 +1,7 @@
 <%@page import="kr.co.start.bankbook.BankBookDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,10 +11,6 @@
 <body>
 	<h1>BankBook Detail</h1>
 	
-	<%BankBookDto bankBookDto = (BankBookDto)request.getAttribute("detail"); 
-	String sale = bankBookDto.getBookSale() == 1 ? "판매중" : "판매금지"; %>
-	<h3><%=bankBookDto %></h3>
-	
 	<table border="1">
 		<tr>
 			<th>Num</th>
@@ -22,10 +19,18 @@
 			<th>Sale</th>
 		</tr>
 		<tr>
-			<td><%=bankBookDto.getBookNum() %></td>
-			<td><%=bankBookDto.getBookName() %></td>
-			<td><%=bankBookDto.getBookRate() %></td>
-			<td><%=sale %></td>
+			<td>${requestScope.detail.bookNum }</td>
+			<td>${requestScope.detail.bookName }</td>
+			<td>${requestScope.detail.bookRate }</td>
+			<td>
+				<c:if test="${requestScope.detail.bookSale == 1}">
+					판매중
+				</c:if>
+				<c:if test="${requestScope.detail.bookSale != 1}">
+					판매금지
+				</c:if>
+			
+			</td>
 		</tr>
 	</table>
 	
